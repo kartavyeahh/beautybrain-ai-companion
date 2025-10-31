@@ -65,49 +65,65 @@ export default {
       },
       keyframes: {
         "accordion-down": {
-          from: {
-            height: "0",
-          },
-          to: {
-            height: "var(--radix-accordion-content-height)",
-          },
+          from: { height: "0" },
+          to: { height: "var(--radix-accordion-content-height)" },
         },
         "accordion-up": {
-          from: {
-            height: "var(--radix-accordion-content-height)",
-          },
-          to: {
-            height: "0",
-          },
+          from: { height: "var(--radix-accordion-content-height)" },
+          to: { height: "0" },
         },
         "float": {
-          "0%, 100%": { transform: "translateY(0px)" },
-          "50%": { transform: "translateY(-20px)" },
+          "0%, 100%": { transform: "translateY(0px) rotate(0deg)" },
+          "50%": { transform: "translateY(-30px) rotate(3deg)" },
         },
-        "glow": {
-          "0%, 100%": { opacity: "0.5" },
-          "50%": { opacity: "1" },
+        "glow-pulse": {
+          "0%, 100%": { opacity: "0.6", filter: "blur(20px)" },
+          "50%": { opacity: "1", filter: "blur(30px)" },
         },
         "shimmer": {
           "0%": { backgroundPosition: "-200% 0" },
           "100%": { backgroundPosition: "200% 0" },
         },
+        "gradient-shift": {
+          "0%, 100%": { backgroundPosition: "0% 50%" },
+          "50%": { backgroundPosition: "100% 50%" },
+        },
+        "scale-pulse": {
+          "0%, 100%": { transform: "scale(1)" },
+          "50%": { transform: "scale(1.05)" },
+        },
+        "border-glow": {
+          "0%, 100%": { boxShadow: "0 0 20px hsl(320 100% 65% / 0.5)" },
+          "50%": { boxShadow: "0 0 40px hsl(320 100% 65% / 0.8), 0 0 60px hsl(200 100% 55% / 0.5)" },
+        },
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
-        "float": "float 6s ease-in-out infinite",
-        "glow": "glow 3s ease-in-out infinite",
+        "float": "float 8s ease-in-out infinite",
+        "glow-pulse": "glow-pulse 4s ease-in-out infinite",
         "shimmer": "shimmer 3s linear infinite",
+        "gradient-shift": "gradient-shift 8s ease infinite",
+        "scale-pulse": "scale-pulse 3s ease-in-out infinite",
+        "border-glow": "border-glow 3s ease-in-out infinite",
       },
       backgroundImage: {
         "gradient-hero": "var(--gradient-hero)",
+        "gradient-secondary": "var(--gradient-secondary)",
         "gradient-glow": "var(--gradient-glow)",
         "gradient-card": "var(--gradient-card)",
+        "gradient-mesh": "var(--gradient-mesh)",
+      },
+      backgroundSize: {
+        "300%": "300% 300%",
       },
       boxShadow: {
-        "soft": "var(--shadow-soft)",
+        "neon": "var(--shadow-neon)",
         "glow": "var(--shadow-glow)",
+        "premium": "var(--shadow-premium)",
+      },
+      backdropBlur: {
+        "xs": "2px",
       },
     },
   },

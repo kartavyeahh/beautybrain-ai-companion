@@ -2,7 +2,7 @@ import { useState, useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
-import { Send, Camera, Sparkles, Bot, User } from "lucide-react";
+import { Send, Camera, Sparkles, Bot, User, Zap } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 
 interface Message {
@@ -17,7 +17,7 @@ const ChatInterface = () => {
     {
       id: "1",
       role: "assistant",
-      content: "Hello! 🌸 I'm your BeautyBrain assistant. I'm here to help you discover the perfect beauty products, verify authenticity, find the best deals, and create personalized routines. How can I help you shine today?",
+      content: "hey bestie! 🌸 i'm your BeautyBrain assistant and i'm here to help you discover products that actually slap. let's find your perfect match - authenticity verified, best prices locked in. what are you looking for?",
       timestamp: new Date(),
     },
   ]);
@@ -45,7 +45,7 @@ const ChatInterface = () => {
       const aiMessage: Message = {
         id: (Date.now() + 1).toString(),
         role: "assistant",
-        content: "I understand you're looking for beauty recommendations. While I'm still learning to provide real-time insights, I'm designed to help you with price comparisons, authenticity verification, and personalized product suggestions. Connect me to AI services for full functionality! 💫",
+        content: "love that energy! 💫 i'm designed to help you with price comparisons, authenticity checks, and personalized product recs. connect me to AI services and i'll show you the magic ✨",
         timestamp: new Date(),
       };
       setMessages((prev) => [...prev, aiMessage]);
@@ -57,73 +57,83 @@ const ChatInterface = () => {
     const file = event.target.files?.[0];
     if (file) {
       toast({
-        title: "Image received! 📸",
-        description: "AI product analysis coming soon. Connect AI services to unlock this feature.",
+        title: "image received! 📸",
+        description: "visual AI analysis coming soon - connect AI to unlock this feature",
       });
     }
   };
 
   return (
-    <section className="min-h-screen py-20 bg-gradient-glow">
-      <div className="container mx-auto px-4 max-w-4xl">
-        <div className="bg-gradient-card backdrop-blur-xl rounded-3xl shadow-glow border border-border overflow-hidden">
+    <section className="min-h-screen py-20 bg-background relative overflow-hidden">
+      {/* Background effects */}
+      <div className="absolute inset-0 bg-gradient-mesh opacity-30" />
+      
+      <div className="container mx-auto px-4 max-w-5xl relative z-10">
+        <div className="glass-effect rounded-[2rem] shadow-premium border-2 border-primary/30 overflow-hidden">
           {/* Header */}
-          <div className="border-b border-border bg-card/50 backdrop-blur-sm p-6">
-            <div className="flex items-center gap-3">
-              <div className="w-12 h-12 rounded-full bg-gradient-hero flex items-center justify-center shadow-soft">
-                <Sparkles className="w-6 h-6 text-white" />
+          <div className="border-b border-primary/20 glass-effect p-6">
+            <div className="flex items-center gap-4">
+              <div className="relative">
+                <div className="w-14 h-14 rounded-2xl bg-gradient-hero flex items-center justify-center shadow-neon">
+                  <Sparkles className="w-7 h-7 text-white" />
+                </div>
+                <div className="absolute -top-1 -right-1 w-4 h-4 bg-accent rounded-full border-2 border-background animate-scale-pulse" />
               </div>
-              <div>
-                <h2 className="text-xl font-bold text-foreground">BeautyBrain Assistant</h2>
-                <p className="text-sm text-muted-foreground">Your intelligent beauty companion</p>
+              <div className="flex-1">
+                <h2 className="text-2xl font-black text-foreground">BeautyBrain</h2>
+                <p className="text-sm text-muted-foreground font-semibold">your AI beauty bestie • online</p>
+              </div>
+              <div className="hidden sm:flex items-center gap-2 px-4 py-2 rounded-full glass-effect border border-primary/30">
+                <Zap className="w-4 h-4 text-primary" />
+                <span className="text-xs font-bold uppercase tracking-wider text-muted-foreground">powered by AI</span>
               </div>
             </div>
           </div>
 
           {/* Messages */}
-          <ScrollArea className="h-[500px] p-6">
+          <ScrollArea className="h-[550px] p-6 bg-background/40">
             <div className="space-y-6">
               {messages.map((message) => (
                 <div
                   key={message.id}
-                  className={`flex gap-3 ${
+                  className={`flex gap-4 ${
                     message.role === "user" ? "flex-row-reverse" : "flex-row"
                   }`}
                 >
                   <div
-                    className={`w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 ${
+                    className={`w-12 h-12 rounded-2xl flex items-center justify-center flex-shrink-0 ${
                       message.role === "user"
-                        ? "bg-primary/20"
-                        : "bg-gradient-hero shadow-soft"
+                        ? "bg-gradient-secondary shadow-glow"
+                        : "bg-gradient-hero shadow-neon"
                     }`}
                   >
                     {message.role === "user" ? (
-                      <User className="w-5 h-5 text-primary" />
+                      <User className="w-6 h-6 text-white" />
                     ) : (
-                      <Bot className="w-5 h-5 text-white" />
+                      <Bot className="w-6 h-6 text-white" />
                     )}
                   </div>
                   <div
-                    className={`rounded-2xl px-4 py-3 max-w-[80%] ${
+                    className={`rounded-3xl px-6 py-4 max-w-[75%] ${
                       message.role === "user"
-                        ? "bg-gradient-hero text-white shadow-soft"
-                        : "bg-card border border-border"
+                        ? "bg-gradient-secondary text-white shadow-glow font-semibold"
+                        : "glass-effect border border-primary/20 text-foreground"
                     }`}
                   >
-                    <p className="text-sm leading-relaxed">{message.content}</p>
+                    <p className="text-base leading-relaxed">{message.content}</p>
                   </div>
                 </div>
               ))}
               {isTyping && (
-                <div className="flex gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-hero flex items-center justify-center shadow-soft">
-                    <Bot className="w-5 h-5 text-white" />
+                <div className="flex gap-4">
+                  <div className="w-12 h-12 rounded-2xl bg-gradient-hero flex items-center justify-center shadow-neon">
+                    <Bot className="w-6 h-6 text-white" />
                   </div>
-                  <div className="bg-card border border-border rounded-2xl px-4 py-3">
-                    <div className="flex gap-1">
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.2s" }} />
-                      <div className="w-2 h-2 bg-primary rounded-full animate-bounce" style={{ animationDelay: "0.4s" }} />
+                  <div className="glass-effect border border-primary/20 rounded-3xl px-6 py-4">
+                    <div className="flex gap-2">
+                      <div className="w-3 h-3 bg-primary rounded-full animate-bounce" />
+                      <div className="w-3 h-3 bg-secondary rounded-full animate-bounce" style={{ animationDelay: "0.15s" }} />
+                      <div className="w-3 h-3 bg-accent rounded-full animate-bounce" style={{ animationDelay: "0.3s" }} />
                     </div>
                   </div>
                 </div>
@@ -132,7 +142,7 @@ const ChatInterface = () => {
           </ScrollArea>
 
           {/* Input */}
-          <div className="border-t border-border bg-card/50 backdrop-blur-sm p-6">
+          <div className="border-t border-primary/20 glass-effect p-6">
             <div className="flex gap-3">
               <input
                 type="file"
@@ -144,26 +154,39 @@ const ChatInterface = () => {
               <Button
                 variant="outline"
                 size="icon"
-                className="rounded-full border-2 border-primary/20 hover:border-primary/40 hover:bg-gradient-card"
+                className="rounded-2xl glass-effect border-2 border-primary/30 hover:border-primary hover:bg-primary/20 hover:scale-110 transition-all w-14 h-14"
                 onClick={() => fileInputRef.current?.click()}
               >
-                <Camera className="w-5 h-5" />
+                <Camera className="w-6 h-6" />
               </Button>
               <Input
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask about products, prices, or routines..."
-                className="flex-1 rounded-full border-2 border-border bg-background/50 backdrop-blur-sm focus:border-primary/40 px-6"
+                placeholder="ask me anything about beauty products..."
+                className="flex-1 rounded-2xl glass-effect border-2 border-primary/30 focus:border-primary bg-background/50 backdrop-blur-xl px-6 h-14 text-base font-medium placeholder:text-muted-foreground/70"
               />
               <Button
                 onClick={handleSend}
                 disabled={!input.trim()}
-                className="rounded-full bg-gradient-hero text-white shadow-soft hover:scale-105 transition-all"
+                className="group rounded-2xl bg-gradient-hero text-white font-bold shadow-neon hover:shadow-premium hover:scale-110 transition-all disabled:opacity-50 disabled:cursor-not-allowed w-14 h-14"
                 size="icon"
               >
-                <Send className="w-5 h-5" />
+                <Send className="w-6 h-6 group-hover:translate-x-0.5 transition-transform" />
               </Button>
+            </div>
+            
+            {/* Quick actions */}
+            <div className="flex flex-wrap gap-2 mt-4">
+              {["best skincare deals", "verify this product", "perfume for summer vibes"].map((action, i) => (
+                <button
+                  key={i}
+                  onClick={() => setInput(action)}
+                  className="px-4 py-2 rounded-full glass-effect border border-primary/20 text-xs font-bold uppercase tracking-wider text-muted-foreground hover:border-primary/50 hover:text-foreground hover:scale-105 transition-all"
+                >
+                  {action}
+                </button>
+              ))}
             </div>
           </div>
         </div>
